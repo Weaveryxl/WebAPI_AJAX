@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee</title>
+	<meta charset="utf-8" />
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        
+        $(document).ready();
+        function Save() {
+            var emp = {
+                EmployeeID: $("#EmpID").val(),
+                Name: $("#EmpName").val(),
+                Salary: $("#EmpSalary").val(),
+                DepartmentID: $("#EmpDepID").val(),
+                JoinDate: $("#EmpDate").val()
+            };
+
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: "http://localhost:64746/api/employees/save",
+                data: JSON.stringify(emp),
+                success: function (a) {
+                    alert("Worked");
+                    $("#result").val(a);
+                },
+                error: function (a) {
+                    alert("Not working");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <h2>All Employees</h2>
+        <ul id="employees"></ul>
+    </div>
+    <div>
+        <h2>Adding New Employee</h2><br />
+        <input type="text" id="EmpID" placeholder="Employee ID"/><br />
+        <input type="text" id="EmpName" placeholder="Employee Name"/><br />
+        
+        
+        
+        
+           <input type="text" id="EmpSalary" placeholder="Salary"/><br />
+        <input type="text" id="EmpDepID" placeholder="Department ID"/><br />
+        <input type="datetime"id="EmpDate" placeholder="Join Date"/><br />
+        <input type="button" value="Save" onclick="Save();" />
+    </div>
+    <input type="text" id="result"/>
+</body>
+</html>
